@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Niroo ✨ My Planner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Animated Background -->
+<div class="bg-canvas">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="blob blob-4"></div>
+  <div class="petals-wrap" id="petals"></div>
+</div>
+
+<!-- Sidebar Nav -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <span class="logo-n">N</span>
+    <span class="logo-rest">iroo</span>
+  </div>
+  <div class="nav-links">
+    <a href="#" class="nav-link active" data-page="home">🏠 <span>Home</span></a>
+    <a href="#" class="nav-link" data-page="routine">⏰ <span>Daily Routine</span></a>
+    <a href="#" class="nav-link" data-page="weekly">📅 <span>Weekly Tasks</span></a>
+    <a href="#" class="nav-link" data-page="targets">🎯 <span>Weekly Targets</span></a>
+    <a href="#" class="nav-link" data-page="special">✨ <span>Special Days</span></a>
+    <a href="#" class="nav-link" data-page="thoughts">💭 <span>Thoughts</span></a>
+    <a href="#" class="nav-link" data-page="calendar">🗓️ <span>Calendar</span></a>
+  </div>
+  <div class="sidebar-bottom">
+    <button class="theme-toggle" id="themeToggle">🌙 Dark Mode</button>
+    <div class="sidebar-quote" id="sideQuote">"You've got this 💖"</div>
+  </div>
+</nav>
+
+<!-- Hamburger -->
+<button class="hamburger" id="hamburger">
+  <span></span><span></span><span></span>
+</button>
+
+<!-- Main Content -->
+<main class="main-content" id="mainContent">
+
+  <!-- HOME PAGE -->
+  <section class="page active" id="page-home">
+    <div class="page-hero">
+      <div class="hero-greeting" id="heroGreeting">Good morning,</div>
+      <h1 class="hero-name">Niroo <span class="hero-emoji">🌸</span></h1>
+      <p class="hero-subtitle">Let's make today beautiful & productive</p>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card" data-stat="routine">
+        <div class="stat-circle" id="circleRoutine">
+          <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" class="stat-bg"/><circle cx="32" cy="32" r="28" class="stat-fill" id="fillRoutine"/></svg>
+          <span class="stat-pct" id="pctRoutine">0%</span>
+        </div>
+        <div class="stat-label">Daily Tasks</div>
+      </div>
+      <div class="stat-card" data-stat="weekly">
+        <div class="stat-circle" id="circleWeekly">
+          <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" class="stat-bg"/><circle cx="32" cy="32" r="28" class="stat-fill" id="fillWeekly"/></svg>
+          <span class="stat-pct" id="pctWeekly">0%</span>
+        </div>
+        <div class="stat-label">Weekly Tasks</div>
+      </div>
+      <div class="stat-card" data-stat="targets">
+        <div class="stat-circle" id="circleTargets">
+          <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" class="stat-bg"/><circle cx="32" cy="32" r="28" class="stat-fill" id="fillTargets"/></svg>
+          <span class="stat-pct" id="pctTargets">0%</span>
+        </div>
+        <div class="stat-label">Weekly Goals</div>
+      </div>
+    </div>
+
+    <div class="dashboard-grid">
+      <!-- Today's tasks preview -->
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <h3>⏰ Today's Routine</h3>
+          <button class="btn-sm" data-page="routine">View All</button>
+        </div>
+        <div class="dash-list" id="homeTodayTasks">
+          <div class="empty-state-sm">No tasks yet 🌸 Add some!</div>
+        </div>
+      </div>
+
+      <!-- Next special day -->
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <h3>✨ Coming Up</h3>
+          <button class="btn-sm" data-page="special">View All</button>
+        </div>
+        <div class="dash-list" id="homeSpecialDays">
+          <div class="empty-state-sm">Nothing upcoming 💫 Add events!</div>
+        </div>
+      </div>
+
+      <!-- Quick note -->
+      <div class="dash-card dash-card-full">
+        <div class="dash-card-header">
+          <h3>💭 Latest Thought</h3>
+          <button class="btn-sm" data-page="thoughts">Write More</button>
+        </div>
+        <div id="homeLatestThought" class="latest-thought">
+          <div class="empty-state-sm">No notes yet 🌙 Write your first thought!</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick nav cards -->
+    <div class="quick-nav-grid">
+      <div class="quick-card" data-page="routine"><div class="qc-icon">⏰</div><div class="qc-label">Daily Routine</div></div>
+      <div class="quick-card" data-page="weekly"><div class="qc-icon">📅</div><div class="qc-label">Weekly Tasks</div></div>
+      <div class="quick-card" data-page="targets"><div class="qc-icon">🎯</div><div class="qc-label">Targets</div></div>
+      <div class="quick-card" data-page="special"><div class="qc-icon">✨</div><div class="qc-label">Special Days</div></div>
+      <div class="quick-card" data-page="thoughts"><div class="qc-icon">💭</div><div class="qc-label">Thoughts</div></div>
+      <div class="quick-card" data-page="calendar"><div class="qc-icon">🗓️</div><div class="qc-label">Calendar</div></div>
+    </div>
+  </section>
+
+  <!-- DAILY ROUTINE PAGE -->
+  <section class="page" id="page-routine">
+    <div class="page-header">
+      <h2 class="page-title">⏰ Daily Routine</h2>
+      <p class="page-subtitle">Your schedule, your flow 🌸</p>
+    </div>
+    <div class="add-form-card">
+      <h3>Add New Task</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Task Name 📌</label>
+          <input type="text" id="routineTaskName" placeholder="e.g. Morning workout..." />
+        </div>
+        <div class="form-group">
+          <label>Start Time</label>
+          <input type="time" id="routineStart" />
+        </div>
+        <div class="form-group">
+          <label>End Time</label>
+          <input type="time" id="routineEnd" />
+        </div>
+      </div>
+      <button class="btn-primary" id="addRoutineTask">+ Add Task</button>
+    </div>
+    <div class="timeline" id="routineTimeline">
+      <div class="empty-state">No tasks yet 🌸<br>Add your first routine task!</div>
+    </div>
+  </section>
+
+  <!-- WEEKLY TASKS PAGE -->
+  <section class="page" id="page-weekly">
+    <div class="page-header">
+      <h2 class="page-title">📅 Weekly Tasks</h2>
+      <p class="page-subtitle">Crush it day by day 💪</p>
+    </div>
+    <div class="add-form-card">
+      <h3>Add Task</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Task Name</label>
+          <input type="text" id="weeklyTaskName" placeholder="Task description..." />
+        </div>
+        <div class="form-group">
+          <label>Day</label>
+          <select id="weeklyDay">
+            <option value="Sunday">Sunday</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-primary" id="addWeeklyTask">+ Add Task</button>
+    </div>
+    <div class="weekly-grid" id="weeklyGrid"></div>
+  </section>
+
+  <!-- WEEKLY TARGETS PAGE -->
+  <section class="page" id="page-targets">
+    <div class="page-header">
+      <h2 class="page-title">🎯 Weekly Targets</h2>
+      <p class="page-subtitle">Dream big, track bigger 🌟</p>
+    </div>
+    <div class="add-form-card">
+      <h3>Add a Goal</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Goal Name</label>
+          <input type="text" id="targetName" placeholder="e.g. Study 2 hours daily..." />
+        </div>
+        <div class="form-group">
+          <label>Target (times/week)</label>
+          <input type="number" id="targetTotal" min="1" max="7" value="3" placeholder="3" />
+        </div>
+      </div>
+      <button class="btn-primary" id="addTarget">+ Add Goal</button>
+    </div>
+    <div class="targets-list" id="targetsList">
+      <div class="empty-state">No goals yet 🎯<br>Set your first weekly target!</div>
+    </div>
+  </section>
+
+  <!-- SPECIAL DAYS PAGE -->
+  <section class="page" id="page-special">
+    <div class="page-header">
+      <h2 class="page-title">✨ Special Days</h2>
+      <p class="page-subtitle">Mark the moments that matter 🌸</p>
+    </div>
+    <div class="add-form-card">
+      <h3>Add Special Day</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Event Title</label>
+          <input type="text" id="specialTitle" placeholder="e.g. Exam day, Birthday..." />
+        </div>
+        <div class="form-group">
+          <label>Date 📅</label>
+          <input type="date" id="specialDate" />
+        </div>
+        <div class="form-group form-group-full">
+          <label>Notes 📝</label>
+          <input type="text" id="specialNotes" placeholder="Any details..." />
+        </div>
+      </div>
+      <button class="btn-primary" id="addSpecial">+ Add Event</button>
+    </div>
+    <div class="special-list" id="specialList">
+      <div class="empty-state">No special days yet ✨<br>Add important events!</div>
+    </div>
+  </section>
+
+  <!-- THOUGHTS PAGE -->
+  <section class="page" id="page-thoughts">
+    <div class="page-header">
+      <h2 class="page-title">💭 My Thoughts</h2>
+      <p class="page-subtitle">Your safe space to write 🌙</p>
+    </div>
+    <div class="thought-editor-card">
+      <input type="text" id="thoughtTitle" placeholder="Title or a word that captures it... ✨" class="thought-title-input" />
+      <textarea id="thoughtBody" placeholder="Write anything you want... no judgement here 🌸" rows="6"></textarea>
+      <div class="thought-actions">
+        <span class="thought-char" id="thoughtChar">0 characters</span>
+        <button class="btn-primary" id="saveThought">💾 Save Note</button>
+      </div>
+    </div>
+    <div class="thoughts-grid" id="thoughtsGrid">
+      <div class="empty-state">No notes yet 💭<br>Write your first thought!</div>
+    </div>
+  </section>
+
+  <!-- CALENDAR PAGE -->
+  <section class="page" id="page-calendar">
+    <div class="page-header">
+      <h2 class="page-title">🗓️ My Calendar</h2>
+      <p class="page-subtitle">Track every day's story 🌸</p>
+    </div>
+
+    <!-- View Tabs -->
+    <div class="cal-tabs">
+      <button class="cal-tab active" data-view="month">Monthly View</button>
+      <button class="cal-tab" data-view="week">Weekly View</button>
+    </div>
+
+    <!-- Month Navigator -->
+    <div class="cal-nav">
+      <button class="cal-nav-btn" id="calPrev">‹</button>
+      <div class="cal-month-label" id="calMonthLabel"></div>
+      <button class="cal-nav-btn" id="calNext">›</button>
+    </div>
+
+    <!-- Legend -->
+    <div class="cal-legend">
+      <div class="legend-item"><span class="legend-dot" style="background:var(--mint)"></span> All done 🌟</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--pink-400)"></span> Partial ✨</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--border)"></span> No tasks</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--gold)"></span> Special day</div>
+    </div>
+
+    <!-- Monthly Grid -->
+    <div class="cal-view" id="calMonthView">
+      <div class="cal-grid" id="calGrid"></div>
+    </div>
+
+    <!-- Weekly View -->
+    <div class="cal-view hidden" id="calWeekView">
+      <div class="week-strip" id="weekStrip"></div>
+      <div class="week-detail" id="weekDetail"></div>
+    </div>
+
+    <!-- Weekly Summary -->
+    <div class="weekly-summary-card" id="weeklySummary"></div>
+  </section>
+
+</main>
+
+<!-- Day Detail Popup -->
+<div class="day-popup-overlay" id="dayPopupOverlay">
+  <div class="day-popup" id="dayPopup">
+    <button class="modal-close" id="dayPopupClose">✕</button>
+    <div id="dayPopupContent"></div>
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast"></div>
+
+<!-- Edit Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modalClose">✕</button>
+    <h3 id="modalTitle">Edit</h3>
+    <div id="modalBody"></div>
+    <div class="modal-footer">
+      <button class="btn-outline" id="modalCancel">Cancel</button>
+      <button class="btn-primary" id="modalSave">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
